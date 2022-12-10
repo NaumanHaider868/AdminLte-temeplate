@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React,{useState} from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const [name,setName] = useState();
@@ -10,33 +10,21 @@ function Login() {
 
     const navigate = useNavigate();
 
-    const handleEmail = (e) => {
-        setEmail(e.target.value);
-        setName(e.target.value)
-    }
-
-    const handlePassword = (e) => {
-        setPassword(e.target.value)
-        setConfirm(e.target.value)
-    }
-
     const handleSubmit = (e) => {
         e.preventDefault();
         let payload = {
+            name:name,
             email: email,
-            password: password
+            password: password,
+            password_confirmation: confirm
         }
 
         axios.post('http://testapi.techenablers.info/api/auth/register',payload)
         .then(data=>{
             console.log(data);
+            alert('Now you are sign In');
+            navigate('/dashboard')
             // localStorage.setItem('access-token', data.data.access_token);
-
-            if(data.data.access_token !== null){
-                navigate('/dashboard')
-            }else{
-                alert('plase Login')
-            }
         })
 
         
@@ -55,7 +43,16 @@ function Login() {
 
                             <form method="post">
                                 <div className="input-group mb-3">
-                                    <input type="text" className="form-control" placeholder="Name" name='name' onChange={handleEmail} />
+                                    <input type="text" className="form-control" placeholder="Name" value={name} name='name' onChange={(e)=>setName(e.target.value)} />
+                                    <div className="input-group-append">
+                                        <div className="input-group-text">
+                                            <span className="fas fa-envelope"></span>
+                                        </div>
+                                        <p>Nauman hhadfafnkjfghfgfbnbhgdf</p>
+                                    </div>
+                                </div>
+                                <div className="input-group mb-3">
+                                    <input type="email" className="form-control" placeholder="Email" value={email} name='email' onChange={(e)=>setEmail(e.target.value)} />
                                     <div className="input-group-append">
                                         <div className="input-group-text">
                                             <span className="fas fa-envelope"></span>
@@ -63,15 +60,7 @@ function Login() {
                                     </div>
                                 </div>
                                 <div className="input-group mb-3">
-                                    <input type="email" className="form-control" placeholder="Email" name='email' onChange={handleEmail} />
-                                    <div className="input-group-append">
-                                        <div className="input-group-text">
-                                            <span className="fas fa-envelope"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group mb-3">
-                                    <input type="password" className="form-control" placeholder="Password" name='password' onChange={handlePassword} />
+                                    <input type="password" className="form-control" placeholder="Password" value={password} name='password' onChange={(e)=>setPassword(e.target.value)} />
                                     <div className="input-group-append">
                                         <div className="input-group-text">
                                             <span className="fas fa-lock"></span>
@@ -79,7 +68,7 @@ function Login() {
                                     </div>
                                 </div>
                                 <div className="input-group mb-3">
-                                    <input type="password" className="form-control" placeholder="Confirm Password" name='confirm' onChange={handlePassword} />
+                                    <input type="password" className="form-control" placeholder="Confirm Password" value={confirm} name='confirm' onChange={(e)=>setConfirm(e.target.value)} />
                                     <div className="input-group-append">
                                         <div className="input-group-text">
                                             <span className="fas fa-lock"></span>
