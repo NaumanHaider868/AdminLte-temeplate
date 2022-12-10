@@ -1,13 +1,13 @@
 import React from 'react';
-// import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 
 function SideBar() {
-    // const navigate = useNavigate();
-    // function logout(){
-    //     localStorage.clear()
-    //     navigate('/')
-    // }
+    const navigate = useNavigate();
+    function logout(){
+        localStorage.clear()
+        navigate('/')
+    }
     return (
 
         <>
@@ -75,17 +75,11 @@ function SideBar() {
                                 </span>
                             </li>
                             <hr/>
-                            <li className="nav-item">
-                                <span style={{color:'black'}}>
-                                    <a className="nav-link">
-                                        <p>Profile</p>
-                                    </a>
-                                </span>
-                            </li>
+                            
                             <li className="nav-item">
                                 
                                     <a className="nav-link">
-                                        {/* <p onClick={logout}>LogOut</p> */}
+                                        <p onClick={logout}>LogOut</p>
                                     </a>
                             </li>
                         </ul>
